@@ -15,7 +15,7 @@ public class CameraLock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(Body.transform.position.x, Body.transform.position.y + 1.5f, Body.transform.position.z);
+        transform.position = new Vector3(Body.transform.position.x, Body.transform.position.y + 1.0f, Body.transform.position.z);
     }
 
     

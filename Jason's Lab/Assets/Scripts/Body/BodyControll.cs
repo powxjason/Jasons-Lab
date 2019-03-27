@@ -36,18 +36,49 @@ public class BodyControll : MonoBehaviour
         Xinput = Input.GetAxisRaw("Horizontal");
         Yinput = Input.GetAxisRaw("Vertical");
 
+        Vector3 YinputVector;
+        Vector3 XinputVector;
+
         if(Yinput != 0)
         {
 
             if(Yinput > 0)
             {
-                GetComponent<Rigidbody>().velocity = transform.forward * ForwardSpeed;
+                YinputVector = transform.forward * ForwardSpeed;
             }
             else
             {
-                GetComponent<Rigidbody>().velocity = -transform.forward * BackPedalSpeed;
+                YinputVector = -transform.forward * BackPedalSpeed;
             }
-       
+
         }
+        else
+        {
+            YinputVector = new Vector3(0, 0, 0);
+        }
+
+        if (Xinput != 0)
+        {
+
+            if (Xinput > 0)
+            {
+                XinputVector = transform.right * StrafeSpeed;
+            }
+            else
+            {
+                XinputVector = -transform.right * StrafeSpeed;
+            }
+
+        }
+        else
+        {
+            XinputVector = new Vector3(0, 0, 0);
+        }
+
+        Vector3 inputVector = XinputVector +YinputVector;
+
+        GetComponent<Rigidbody>().velocity = new Vector3 (inputVector.x, GetComponent<Rigidbody>().velocity.y, inputVector.z);
+
+
     }
 }
