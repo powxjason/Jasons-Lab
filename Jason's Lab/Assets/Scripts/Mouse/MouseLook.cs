@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    float mouseX;
-    float mouseY;
-    float HorizontalSensitivity;
-    float VerticalSensitivity;
+    public float mouseX;
+    public float mouseY;
+    public float HorizontalSensitivity;
+    public float VerticalSensitivity;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +19,9 @@ public class MouseLook : MonoBehaviour
     void Update()
     {
         MouseLock();
+        MouseInput();
+        CameraSpin();
+        //CameraMoveForward();
     }
 
     void MouseLock()
@@ -37,5 +40,26 @@ public class MouseLook : MonoBehaviour
     {
         mouseX = Input.GetAxis("Mouse X");
         mouseY = Input.GetAxis("Mouse Y");
+
+        //Debug.Log(mouseX + " + " + mouseY);
+
+    }
+
+    void CameraSpin()
+    {
+
+        transform.Rotate(mouseY * -VerticalSensitivity,0,0, Space.Self);
+        transform.Rotate(0, mouseX * HorizontalSensitivity, 0, Space.Self);
+
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0);
+    }
+
+    void CameraMoveForward()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.Translate(Vector3.forward);
+        }
+
     }
 }
